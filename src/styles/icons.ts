@@ -1,0 +1,6 @@
+export { FaChessBoard, FaQuestionCircle, FaSearch, FaChess } from 'react-icons/fa'
+export { BsPlayFill, BsNewspaper, BsChatDotsFill, BsThreeDots, BsGearFill } from 'react-icons/bs'
+export { MdWarning, MdSchool } from 'react-icons/md'
+export { RiVipDiamondFill } from 'react-icons/ri'
+export { HiSun } from 'react-icons/hi'
+export { BiArrowToLeft } from 'react-icons/bi'
