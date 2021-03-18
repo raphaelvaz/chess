@@ -10,7 +10,7 @@ export default createGlobalStyle`
    html{
     max-width: 100vw;
     max-height: 100vh;
-
+    
     width: 100%;
     height: 100%;
     }
@@ -22,5 +22,6 @@ export default createGlobalStyle`
        --dark-text-color-title: #fff;
        --dark-background-color-aside: #292725;
        --dark-background-color-aside-hover: #252220;
+       --dark-background-color-sidebar:#272321;
    }
 `;
