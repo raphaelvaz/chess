@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Container, Table, Profile, ProfileText } from './styles';
+import Table from '../Table'
+import { Container, Profile, ProfileText } from './styles';
 
 const Main: React.FC = () => {
     return (
@@ -13,9 +14,7 @@ const Main: React.FC = () => {
                 </ProfileText>
                 {/* <Timer /> */}
             </Profile>
-            <Table>
-
-            </Table>
+            <Table />
             <Profile>
                 <img src='https://avatars.githubusercontent.com/u/42014582?s=460&u=2d7def55f1d78438417f4c6513a9b1dbea6bb149&v=4' alt='profileImage' />
                 <ProfileText>
