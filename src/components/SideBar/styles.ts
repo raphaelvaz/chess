@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 
 export const Container = styled.div`
+    min-width: 400px;
     width: min(50vw, 500px);
-    height: 95vh;
 
     margin: auto 0;
     border-radius: 5px;
@@ -49,6 +49,10 @@ export const Plays = styled.div`
     width: 100%;
     height: 45vh;
     background-color:var(--dark-background-color-aside);
+
+    @media (max-width: 970px){
+        height:20vh;
+    }
 `;
 
 export const TaskBar = styled.div`

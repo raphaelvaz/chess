@@ -12,10 +12,10 @@ const SideBar: React.FC = () => {
     return (
         <Container>
             <Tabs >
-                <Tab ><BsClockFill size={25} /><span>PARTIDA</span></Tab>
-                <Tab ><BsPlusSquareFill size={25} />NOVA PARTIDA</Tab>
-                <Tab ><FaChessBoard size={25} /> PARTIDAS</Tab>
-                <Tab ><BsPeopleFill size={25} /> JOGADORES</Tab>
+                <Tab ><BsClockFill size={25} /><span>Partida</span></Tab>
+                <Tab ><BsPlusSquareFill size={25} />Nova partida</Tab>
+                <Tab ><FaChessBoard size={25} /> Partidas</Tab>
+                <Tab ><BsPeopleFill size={25} /> Jogadores</Tab>
             </Tabs>
             <Plays />
             <TaskBar >
@@ -35,7 +35,6 @@ const SideBar: React.FC = () => {
                 <BsPlayFill size={24} />
                 <ImLoop size={20} />
                 <BsGearFill size={20} />
-
             </TaskBar>
         </Container >
     );
