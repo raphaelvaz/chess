@@ -3,8 +3,8 @@ import styled from 'styled-components'
 export const Container = styled.div`
     width: min(65vw,650px);
     height: 100vh;
-    padding: 0 20px;
-    background-color: var(--dark-background-color);
+    padding: 0 40px;
+    
     color: var(--dark-text-color)
 `;
 
