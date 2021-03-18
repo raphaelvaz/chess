@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+
     width: min(65vw,650px);
     height: 100vh;
-    color: var(--dark-text-color)
+    color: var(--dark-text-color);
+
+    @media (max-width: 970px){
+        height:auto;
+    }
 `;
 
 export const Profile = styled.div`
