@@ -5,8 +5,9 @@ import {
     MdKeyboardArrowLeft, MdKeyboardArrowRight, BsPlayFill,
     ImLoop, BsGearFill
 } from '../../styles/icons'
+import { Container, Tabs, Tab, Plays, TaskBar } from './styles'
+import Chat from '../Chat/index'
 
-import { Container, Tabs, Tab, Plays, TaskBar } from './styles';
 
 const SideBar: React.FC = () => {
     return (
@@ -36,6 +37,7 @@ const SideBar: React.FC = () => {
                 <ImLoop size={20} />
                 <BsGearFill size={20} />
             </TaskBar>
+            <Chat />
         </Container >
     );
 }
