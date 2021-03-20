@@ -47,7 +47,7 @@ export const Tab = styled.div`
 
 export const Plays = styled.div`
     width: 100%;
-    height: 45vh;
+    height: 35vh;
     background-color:var(--dark-background-color-aside);
 
     @media (max-width: 970px){
