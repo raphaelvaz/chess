@@ -1,19 +1,12 @@
 import React from 'react'
-import MenuBar from './components/MenuBar'
-import Main from './components/Main'
 import GlobalStyles from './styles/GlobalStyles'
+import RoomPage from './pages/RoomPage'
 
-import './App.css'
-
-function App() {
+const App: React.FC = () => {
   return (
     <>
-      <div id="game-page">
-        <MenuBar />
-        <Main />
-        {/* <SideBar />  */}
-        <GlobalStyles />
-      </div>
+      <RoomPage />
+      <GlobalStyles />
     </>
   )
 
