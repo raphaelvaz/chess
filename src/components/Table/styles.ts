@@ -11,7 +11,4 @@ export const Container = styled.div`
     grid-template-rows:repeat(8, auto);
     grid-template-columns:repeat(8, auto);
     justify-content: center;
-
-    background-color:red;
-
 `;
