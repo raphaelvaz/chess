@@ -22,6 +22,8 @@ const Table: React.FC = () => {
             return;
         }
         if (source > 0) {
+            //selected send...
+            //backend
             console.log('peça movida!')
             console.log(source, source)
             const newTable = table.map((content, index) => {
