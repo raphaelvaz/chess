@@ -8,6 +8,7 @@ export const Container = styled.div`
 export const MessageBox = styled.div`
     background-color: var(--dark-background-color-sidebar);
     margin: auto;
+    padding: 10px;
     margin-top: 5px;
     width: 97%;
     height: 25vh;
@@ -15,9 +16,8 @@ export const MessageBox = styled.div`
     overflow:auto;
     overflow-y:scroll;
 
-
     &::-webkit-scrollbar-track{
-        
+        box-shadow: inset 0 0 6px #272321;
         -webkit-box-shadow: inset 0 0 6px #272321;
         border-radius: 10px;
         background-color: #272321;
@@ -31,6 +31,7 @@ export const MessageBox = styled.div`
     &::-webkit-scrollbar-thumb{
         visibility:hidden;
         border-radius: 10px;
+        box-shadow: inset 0 0 6px #272321;
         -webkit-box-shadow: inset 0 0 6px hsl(0, 0.6%, 47.3%);
         background-color: hsl(0, 0.6%, 47.3%);
         }
