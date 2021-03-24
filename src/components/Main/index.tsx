@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Table from '../Table'
-import { Container, Profile, ProfileText } from './styles';
+import { Container, Profile } from './styles';
 import { useUsers } from '../../hooks/user'
 
 const Main: React.FC = () => {
@@ -10,18 +10,14 @@ const Main: React.FC = () => {
 
         <Container>
             <Profile>
-                <img src='https://avatars.githubusercontent.com/u/42014582?s=460&u=2d7def55f1d78438417f4c6513a9b1dbea6bb149&v=4' alt='profileImage' />
-                <ProfileText>
-                    <strong>{users[0].name}</strong><span>(1000)</span>
-                </ProfileText>
+                <div className='player1' />
+                <strong>{users[0].name}</strong>
                 {/* <Timer /> */}
             </Profile>
             <Table />
             <Profile>
-                <img src='https://avatars.githubusercontent.com/u/42014582?s=460&u=2d7def55f1d78438417f4c6513a9b1dbea6bb149&v=4' alt='profileImage' />
-                <ProfileText>
-                    <strong>{users[1].name}</strong><span>(1200)</span>
-                </ProfileText>
+                <div className='player2' />
+                <strong>{users[1].name}</strong>
                 {/* <Timer /> */}
             </Profile>
         </Container>

@@ -14,19 +14,21 @@ export const Container = styled.div`
 export const Profile = styled.div`
     display: flex;
     margin: 15px 0;
-
-    img{
+    div {
         width:40px;
         width:40px;
 
+        margin-right: 10px;
+        
         border-radius: 5px;
+
+        &.player1{
+            background-color: #fff;
+        }
+        &.player2{
+            background-color: #000;
+        }
+        
     }
     
-`;
-
-export const ProfileText = styled.div`
-    margin-left: 10px;
-    span{
-        margin-left: 4px;
-    }
 `;
