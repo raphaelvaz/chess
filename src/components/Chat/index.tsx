@@ -1,17 +1,25 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { Container, MessageBox, Form } from './styles';
-
 import { socket } from '../../services/socket'
+import { useUsers } from '../../hooks/user';
 
 interface Message {
     author: string;
     content: string;
 }
 
+interface UserData {
+    socketId: string;
+    name: string;
+    room: string
+
+}
+
 
 const Chat: React.FC = () => {
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
+    const { users } = useUsers()
 
     useEffect(() => {
         socket.on("receivedMessage", (message: Message) => {
@@ -28,13 +36,13 @@ const Chat: React.FC = () => {
 
     const handleMessage = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-
+        const userName = users.find((user: UserData) => user.socketId === socket.id)?.name
         const message: Message = {
-            author: socket.id,
+            author: userName || '',
             content: input,
         }
         if (input) {
-            socket.emit('sendMessage', message)
+            socket.emit('sendMessage', { content: input })
             setMessages([...messages, message])
             setInput('')
         }
