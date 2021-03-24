@@ -2,30 +2,59 @@ import React, { useState, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom'
 import { Container } from './styles';
 import { socket } from '../../services/socket'
+import { useUsers } from '../../hooks/user'
+
+interface roomStateData {
+    state: User[]
+}
+
+interface User {
+    socketId: string;
+    name: string;
+    room: string;
+}
 
 const LadingPage: React.FC = () => {
-    const [userName, setUserName] = useState('');
-    const [room, setRoom] = useState('');
+    const [inputName, setInputName] = useState('');
+    const [inputRoom, setInputRoom] = useState('');
+    const [stateRoom, setStateRoom] = useState('');
     const history = useHistory()
+    const { setUsers } = useUsers()
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
         //TODO validate
-        socket.emit('enterRoom', { userName, room })
-        if (userName && room) {
-            history.push('/room')
+        if (inputName && inputRoom) {
+            socket.emit('enterRoom', { userName: inputName, room: inputRoom })
+            socket.on('roomState', (({ state }: roomStateData) => {
+                if (state.length > 2) {
+                    setStateRoom('Essa sala já está cheia')
+                }
+                else if (state.length === 1) {
+                    setStateRoom('Aguardando outro jogador entrar na sala')
+                }
+                else {
+                    setUsers(state)
+                    history.push('/room')
+                }
+            }))
+
+            socket.on('ready', (usersInRoom: User[]) => {
+                setUsers(usersInRoom)
+                history.push('/room')
+            })
         }
     }
-
 
     return (
 
         <Container>
             <form onSubmit={handleSubmit}>
-                <input value={userName} onChange={(e) => setUserName(e.target.value)} type='text' name='userName' placeholder='Digite seu nome'></input>
-                <input value={room} onChange={(e) => setRoom(e.target.value)} type='text' name='room' placeholder='Digite o nome da sala'></input>
-                <button type='submit'>Entrar</button>
+                <input value={inputName} onChange={(e) => setInputName(e.target.value)} type='text' name='userName' placeholder='Digite seu nome'></input>
+                <input value={inputRoom} onChange={(e) => setInputRoom(e.target.value)} type='text' name='room' placeholder='Digite o nome da sala'></input>
+                <button disabled={(stateRoom.split(' ')[0] === 'Aguardando' && true)} type='submit'>Entrar</button>
             </form>
+            <strong>{stateRoom}</strong>
         </Container>
     );
 }
