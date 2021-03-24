@@ -1,11 +1,11 @@
 import React from 'react'
 import GlobalStyles from './styles/GlobalStyles'
-import RoomPage from './pages/RoomPage'
+import Routes from './routes'
 
 const App: React.FC = () => {
   return (
     <>
-      <RoomPage />
+      <Routes />
       <GlobalStyles />
     </>
   )
