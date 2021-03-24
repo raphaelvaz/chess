@@ -8,21 +8,25 @@ interface Message {
     content: string;
 }
 
+
 const Chat: React.FC = () => {
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
 
     useEffect(() => {
-        socket.on("receivedMessage", (message) => {
+        socket.on("receivedMessage", (message: Message) => {
             setMessages([...messages, message])
         })
 
-        socket.on("previousMessages", (messages) => {
+        socket.on("previousMessages", (messages: Message[]) => {
             setMessages(messages)
+        })
+        socket.on("notification", (connectedMessage: Message) => {
+            setMessages([...messages, connectedMessage])
         })
     }, [messages])
 
-    function handleMessage(event: FormEvent<HTMLFormElement>): void {
+    const handleMessage = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
         const message: Message = {
@@ -40,7 +44,7 @@ const Chat: React.FC = () => {
         <Container>
             <MessageBox>
                 <ul>
-                    {messages.map((message) => (<li>{message.author + ':' + message.content}</li>))}
+                    {messages.map((message) => (<li>{message.author + ': ' + message.content}</li>))}
                 </ul>
             </MessageBox>
             <Form onSubmit={handleMessage}>
