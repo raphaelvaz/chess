@@ -16,7 +16,7 @@ export const Container = styled.button<ButtonProps>`
     width: min(8vw, min(10vh, 70px));
     height: min(8vw, min(10vh, 70px));
     
-    border: 1px black solid;
+    border: none;
 
     background-color: ${props => ((
         props.index > 7 && props.index < 16)
