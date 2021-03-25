@@ -15,7 +15,9 @@ const SideBar: React.FC = () => {
                 <Tab ><BsPeopleFill size={25} /> Jogadores</Tab>
             </Tabs>
             <Plays /> */}
-            <Plays />
+            <Plays>
+                Jogadas:
+            </Plays>
             <TaskBar >
                 <button>
                     <FaEquals size={25} />

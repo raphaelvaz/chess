@@ -46,9 +46,52 @@ export const Tab = styled.div`
 `;
 
 export const Plays = styled.div`
-    width: 100%;
-    height: 110px;
-    background-color:var(--dark-background-color-aside);
+
+    width: 97%;
+    height: 140px;
+    margin: 5px auto;
+
+    border-radius: 5px;
+    padding: 10px;
+
+    background-color:var(--dark-background-color-sidebar);
+    
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+
+    overflow:auto;
+    overflow-y:scroll;
+
+    &::-webkit-scrollbar-track{
+        box-shadow: inset 0 0 6px #272321;
+        -webkit-box-shadow: inset 0 0 6px #272321;
+        border-radius: 10px;
+        background-color: #272321;
+    }
+
+    &::-webkit-scrollbar{
+        width: 7px;
+        border-radius: 10px;
+        background-color: #272321;
+    }
+    &::-webkit-scrollbar-thumb{
+        visibility:hidden;
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px #272321;
+        -webkit-box-shadow: inset 0 0 6px hsl(0, 0.6%, 47.3%);
+        background-color: hsl(0, 0.6%, 47.3%);
+        }
+
+    &:hover{
+        &::-webkit-scrollbar-thumb{
+            visibility:visible;    
+        }   
+    }
+
+    ul{
+        list-style-type: none;
+    }
 
     @media (max-width: 970px){
         height:20vh;
