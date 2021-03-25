@@ -15,6 +15,10 @@ export default createGlobalStyle`
     height: 100%;
     }
 
+    body, input, button {
+        font: 600 14px Nunito, sans-serif;
+    }
+
    :root{
        --dark-background-color: #312e2b;
        --dark-text-color: hsla(0,0%,100%,.65);

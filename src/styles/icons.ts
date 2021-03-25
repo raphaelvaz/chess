@@ -1,7 +1,7 @@
 export {
     FaChessBoard, FaQuestionCircle, FaSearch, FaChess,
     FaEquals, FaChessBishop, FaChessKing, FaChessKnight,
-    FaChessPawn, FaChessQueen, FaChessRook
+    FaChessPawn, FaChessQueen, FaChessRook, FaHorseHead
 } from 'react-icons/fa'
 export {
     BsPlayFill, BsNewspaper, BsChatDotsFill, BsThreeDots,
