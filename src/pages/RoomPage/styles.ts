@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ChessPageImage from '../../assets/chess-image.jpg'
 
 export const Container = styled.div`
     width:100%;
@@ -6,8 +7,11 @@ export const Container = styled.div`
     
     /* TODO - WHITE SPACE BOTTOM */
 
-    background-color: var(--dark-background-color);
+    background: url(${ChessPageImage}) center no-repeat;
+    background-size: cover;
+`;
 
+export const ContentPage = styled.div`
     display:flex;
     align-items: center;
     justify-content: center;

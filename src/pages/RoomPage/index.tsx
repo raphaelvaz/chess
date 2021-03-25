@@ -1,13 +1,15 @@
 import React from 'react';
-import { Container } from './styles';
+import { Container, ContentPage } from './styles';
 import Main from '../../components/Main'
 import SideBar from '../../components/SideBar'
 
 const RoomPage: React.FC = () => {
     return (
         <Container>
-            <Main />
-            <SideBar />
+            <ContentPage>
+                <Main />
+                <SideBar />
+            </ContentPage>
         </Container>);
 }
 
