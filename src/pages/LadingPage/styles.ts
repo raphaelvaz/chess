@@ -30,6 +30,11 @@ export const Input = styled.input`
     border-radius: 15px;
     border: none;
 
+    @media (max-width: 710px){
+            display:block;
+            margin: 20px 0;
+    }
+
     background-color: var(--dark-background-color);
     color: var(--dark-text-color);
 
