@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaEquals, BsFlagFill } from '../../styles/icons'
 import { Container, Plays, TaskBar } from './styles'
 import Chat from '../Chat/index'
 
@@ -19,15 +18,8 @@ const SideBar: React.FC = () => {
                 Jogadas:
             </Plays>
             <TaskBar >
-                <button>
-                    <FaEquals size={25} />
-                    <strong>Empate</strong>
-                </button>
-
-                <button>
-                    <BsFlagFill size={25} />
-                    <strong>Desistir</strong>
-                </button>
+                <button><strong>Empate</strong></button>
+                <button><strong>Desistir</strong></button>
             </TaskBar>
             <Chat />
         </Container >

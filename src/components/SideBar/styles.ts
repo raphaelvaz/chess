@@ -99,7 +99,7 @@ export const Plays = styled.div`
 `;
 
 export const TaskBar = styled.div`
-    width: 97%;
+    width: 98%;
     height: 40px;
     margin: auto;
 
@@ -110,7 +110,7 @@ export const TaskBar = styled.div`
     background-color: var(--dark-background-color-aside);
 
     button{
-        width: 100%;
+        width: 49%;
         height: 35px;
         display:flex;
         align-items:center;
@@ -119,13 +119,7 @@ export const TaskBar = styled.div`
         border-radius: 5px;
         border:none;
 
-        margin-right: 5px;
-
         font-weight: bold;
-
-        svg{
-            margin-right: 3px;
-        }
 
         background-color: var(--dark-background-color-aside-hover);
         color: var(--dark-text-color);
