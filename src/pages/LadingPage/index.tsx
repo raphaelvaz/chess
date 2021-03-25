@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom'
-import { Container } from './styles';
+import { Container, Input, Button } from './styles';
 import { socket } from '../../services/socket'
 import { useUsers } from '../../hooks/user'
 
@@ -49,12 +49,14 @@ const LadingPage: React.FC = () => {
     return (
 
         <Container>
-            <form onSubmit={handleSubmit}>
-                <input value={inputName} onChange={(e) => setInputName(e.target.value)} type='text' name='userName' placeholder='Digite seu nome'></input>
-                <input value={inputRoom} onChange={(e) => setInputRoom(e.target.value)} type='text' name='room' placeholder='Digite o nome da sala'></input>
-                <button disabled={(stateRoom.split(' ')[0] === 'Aguardando' && true)} type='submit'>Entrar</button>
-            </form>
-            <strong>{stateRoom}</strong>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <Input value={inputName} onChange={(e) => setInputName(e.target.value)} type='text' name='userName' placeholder='Digite seu nome'></Input>
+                    <Input value={inputRoom} onChange={(e) => setInputRoom(e.target.value)} type='text' name='room' placeholder='Digite o nome da sala'></Input>
+                    <Button disabled={(stateRoom.split(' ')[0] === 'Aguardando' && true)} type='submit'>Entrar</Button>
+                </form>
+                <strong>{stateRoom}</strong>
+            </div>
         </Container>
     );
 }
