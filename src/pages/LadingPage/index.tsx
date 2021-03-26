@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Container, Input, Button } from './styles';
 import { socket } from '../../services/socket'
 import { useUsers } from '../../hooks/user'
+import { useToast } from '../../hooks/toast'
 
 interface roomStateData {
     state: User[]
@@ -17,9 +18,10 @@ interface User {
 const LadingPage: React.FC = () => {
     const [inputName, setInputName] = useState('');
     const [inputRoom, setInputRoom] = useState('');
-    const [stateRoom, setStateRoom] = useState('');
+    const [waiting, setWaiting] = useState(false);
     const history = useHistory()
     const { setUsers } = useUsers()
+    const { addToast } = useToast()
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
@@ -28,10 +30,11 @@ const LadingPage: React.FC = () => {
             socket.emit('enterRoom', { userName: inputName, room: inputRoom })
             socket.on('roomState', (({ state }: roomStateData) => {
                 if (state.length > 2) {
-                    setStateRoom('Essa sala já está cheia')
+                    addToast({ title: '', content: '' })
                 }
                 else if (state.length === 1) {
-                    setStateRoom('Aguardando outro jogador entrar na sala')
+                    addToast({ title: 'Aguardando...', content: 'Por favor, espere outro jogador entrar na sala' })
+                    setWaiting(true)
                 }
                 else {
                     setUsers(state)
@@ -53,9 +56,8 @@ const LadingPage: React.FC = () => {
                 <form onSubmit={handleSubmit}>
                     <Input value={inputName} onChange={(e) => setInputName(e.target.value)} type='text' name='userName' placeholder='Digite seu nome'></Input>
                     <Input value={inputRoom} onChange={(e) => setInputRoom(e.target.value)} type='text' name='room' placeholder='Digite o nome da sala'></Input>
-                    <Button disabled={(stateRoom.split(' ')[0] === 'Aguardando' && true)} type='submit'>Entrar</Button>
+                    <Button disabled={waiting} type='submit'>Entrar</Button>
                 </form>
-                <strong>{stateRoom}</strong>
             </div>
         </Container>
     );

@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components'
 import ChessPageImage from '../../assets/chess-image.jpg'
 
@@ -42,7 +43,7 @@ export const Input = styled.input`
     outline: none;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonHTMLAttributes<HTMLButtonElement>>`
     padding: 13px 30px;
     font-size: 16px;
     font-weight: bold;
@@ -51,13 +52,13 @@ export const Button = styled.button`
     border: none;
     outline: none;
 
-    background-color: #04d361;
+    background-color: ${props => props.disabled ? '#015b2a' : '#04d361'};
     color: #fff;
     transition: background-color 0.5;
 
     &:hover{
-        background-color: #07b355;
+        background-color: ${props => props.disabled ? '#015b2a' : '#07b355'};
     }
 
-    cursor: pointer;
+    cursor: ${props => props.disabled ? 'auto' : 'pointer'};
 `;
