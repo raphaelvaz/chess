@@ -2,8 +2,10 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { Container, MessageBox, Form } from './styles';
 import { socket } from '../../services/socket'
 import { useUsers } from '../../hooks/user';
+import { uuid } from 'uuidv4'
 
 interface Message {
+    id: string
     author: string;
     content: string;
 }
@@ -38,6 +40,7 @@ const Chat: React.FC = () => {
         event.preventDefault();
         const userName = users.find((user: UserData) => user.socketId === socket.id)?.name
         const message: Message = {
+            id: uuid(),
             author: userName || '',
             content: input,
         }
@@ -52,7 +55,7 @@ const Chat: React.FC = () => {
         <Container>
             <MessageBox>
                 <ul>
-                    {messages.map((message) => (<li>{message.author + ': ' + message.content}</li>))}
+                    {messages.map((message) => (<li key={message.id}>{message.author + ': ' + message.content}</li>))}
                 </ul>
             </MessageBox>
             <Form onSubmit={handleMessage}>
