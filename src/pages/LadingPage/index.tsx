@@ -29,11 +29,12 @@ const LadingPage: React.FC = () => {
         if (inputName && inputRoom) {
             socket.emit('enterRoom', { userName: inputName, room: inputRoom })
             socket.on('roomState', (({ state }: roomStateData) => {
-                if (state.length > 2) {
-                    addToast({ title: '', content: '' })
+                console.log(state);
+                if (!state.length) {
+                    addToast({ title: 'Sala Cheia', content: 'Por favor, escolha outra sala.' })
                 }
                 else if (state.length === 1) {
-                    addToast({ title: 'Aguardando...', content: 'Por favor, espere outro jogador entrar na sala' })
+                    addToast({ title: 'Aguardando...', content: 'Por favor, espere outro jogador entrar na sala.' })
                     setWaiting(true)
                 }
                 else {
