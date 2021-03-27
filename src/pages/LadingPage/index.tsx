@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import { Container, Input, Button } from './styles';
 import { socket } from '../../services/socket'
@@ -23,30 +23,42 @@ const LadingPage: React.FC = () => {
     const { setUsers } = useUsers()
     const { addToast } = useToast()
 
+    useEffect(() => {
+        socket.on('roomState', (({ state }: roomStateData) => {
+            console.log(state);
+            if (!state.length) {
+                addToast({ title: 'Sala Cheia', content: 'Por favor, escolha outra sala.' })
+            }
+            else if (state.length === 1) {
+                addToast({ title: 'Aguardando...', content: 'Por favor, espere outro jogador entrar na sala.' })
+                setWaiting(true)
+            }
+            else {
+                setUsers(state)
+                history.push('/room')
+            }
+        }))
+
+        socket.on('ready', (usersInRoom: User[]) => {
+            setUsers(usersInRoom)
+            history.push('/room')
+        })
+    }, [addToast, setUsers, history])
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault()
-        //TODO validate
+        if (!inputName && !inputRoom) {
+            addToast({ title: 'MissingParams', content: 'Preencha os campos nome e sala.' })
+        }
+        else if (!inputName) {
+            addToast({ title: 'MissingParams', content: 'Preencha o campo nome.' })
+        }
+        else if (!inputRoom) {
+            addToast({ title: 'MissingParams', content: 'Preencha o campo sala.' })
+        }
         if (inputName && inputRoom) {
             socket.emit('enterRoom', { userName: inputName, room: inputRoom })
-            socket.on('roomState', (({ state }: roomStateData) => {
-                console.log(state);
-                if (!state.length) {
-                    addToast({ title: 'Sala Cheia', content: 'Por favor, escolha outra sala.' })
-                }
-                else if (state.length === 1) {
-                    addToast({ title: 'Aguardando...', content: 'Por favor, espere outro jogador entrar na sala.' })
-                    setWaiting(true)
-                }
-                else {
-                    setUsers(state)
-                    history.push('/room')
-                }
-            }))
-
-            socket.on('ready', (usersInRoom: User[]) => {
-                setUsers(usersInRoom)
-                history.push('/room')
-            })
+            console.log(inputName, inputRoom)
         }
     }
 
