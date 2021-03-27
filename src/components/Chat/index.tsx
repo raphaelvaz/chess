@@ -3,6 +3,7 @@ import { Container, MessageBox, Form } from './styles';
 import { socket } from '../../services/socket'
 import { useUsers } from '../../hooks/user';
 import { uuid } from 'uuidv4'
+import { useHistory } from 'react-router';
 
 interface Message {
     id: string
@@ -22,6 +23,7 @@ const Chat: React.FC = () => {
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([]);
     const { users } = useUsers()
+    const history = useHistory()
 
     useEffect(() => {
         socket.on("receivedMessage", (message: Message) => {
@@ -35,6 +37,17 @@ const Chat: React.FC = () => {
             setMessages([...messages, connectedMessage])
         })
     }, [messages])
+
+    useEffect(() => {
+        socket.on('quit', () => {
+            history.push("/")
+        })
+
+        return () => {
+            socket.emit('playerLeft', socket.id)
+            socket.disconnect()
+        }
+    }, [history])
 
     const handleMessage = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
