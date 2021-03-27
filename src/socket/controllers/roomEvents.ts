@@ -45,6 +45,7 @@ export class RoomEvents implements Controller {
                 const user = this.userRepository.addUser({ socketId: socket.id, name: userName, room })
                 await socket.join(user.room)
                 const connectedMessage = {
+                    id: '123',
                     author: 'Someone came in',
                     content: user.name + " join room!"
                 }
