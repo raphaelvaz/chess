@@ -4,6 +4,7 @@ import { AddUserDTO } from '../DTOs/addUserDto'
 export interface UserRepository {
     addUser(UserData: AddUserDTO): User
     deleteUSer(id: string): void
-    findUser(id: string): User
-    findByRoom(room: string): User[]
+    findBySocketId(id: string): User
+    findAllByRoom(room: string): User[]
+    deleteAllByRoom(room: string): void
 }

@@ -14,10 +14,18 @@ export class ArrayUserRepository implements UserRepository {
         const index = users.findIndex(user => user.socketId === id)
         users.splice(index, 1)
     }
-    findUser(id: string): User {
-        return users.find(user => user.socketId === id)
+    findBySocketId(id: string): User {
+        const user = users.find(user => user.socketId === id)
+        if (user) return user
+        return {} as User
     }
-    findByRoom(room: string): User[] {
+    findAllByRoom(room: string): User[] {
         return users.filter(user => user.room === room)
+    }
+    deleteAllByRoom(room: string): void {
+        const users = this.findAllByRoom(room)
+        users.map(user => {
+            this.deleteUSer(user.socketId)
+        })
     }
 }
