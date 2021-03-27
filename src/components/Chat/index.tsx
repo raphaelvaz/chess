@@ -45,7 +45,6 @@ const Chat: React.FC = () => {
 
         return () => {
             socket.emit('playerLeft', socket.id)
-            socket.disconnect()
         }
     }, [history])
 
