@@ -109,8 +109,8 @@ export const TaskBar = styled.div`
 
     background-color: var(--dark-background-color-aside);
 
-    button{
-        width: 49%;
+    a{
+        width: 99%;
         height: 35px;
         display:flex;
         align-items:center;
@@ -126,6 +126,7 @@ export const TaskBar = styled.div`
 
         outline: none;
         cursor: pointer;
+        text-decoration:none;
 
         transition: background-color 0.2s;
 

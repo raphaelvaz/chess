@@ -1,16 +1,11 @@
 import React from 'react';
 import { Container, Plays, TaskBar } from './styles'
 import Chat from '../Chat/index'
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
 const SideBar: React.FC = () => {
-    const history = useHistory()
-    const handleQuitButton = () => {
-        history.push("/")
-    }
-
     return (
         <Container>
             {/* <Tabs >
@@ -24,8 +19,7 @@ const SideBar: React.FC = () => {
                 Jogadas:
             </Plays>
             <TaskBar >
-                <button><strong>Empate</strong></button>
-                <button onClick={handleQuitButton}><strong>Desistir</strong></button>
+                <Link to="/" ><strong>Desistir</strong></Link>
             </TaskBar>
             <Chat />
         </Container >
