@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Square from '../Square'
 import { Container } from './styles';
-import initChess from '../helpers/initChess'
+import { socket } from '../../services/socket';
 
 interface PieceProps {
-    player: number,
-    type: string,
+    player: 1 | 2,
+    type: string
 }
+
+type GameData = PieceProps[]
 
 const Table: React.FC = () => {
     const [source, setSource] = useState(-1);
-    const [table, setTable] = useState(initChess())
+    const [table, setTable] = useState<GameData>([])
+
+    useEffect(() => {
+        socket.on('startGame', (gameData: GameData) => {
+            setTable(gameData)
+            console.log(gameData)
+        })
+    }, [])
 
     function handleClick(dest: number, square: PieceProps) {
         if (!square.type && source === -1) {
@@ -39,7 +48,7 @@ const Table: React.FC = () => {
                 return content
             })
             console.log(newTable)
-            setTable([...newTable])
+            //setTable([...newTable])
             setSource(-1)
         }
     }
