@@ -1,12 +1,12 @@
 import React, { ButtonHTMLAttributes } from 'react';
-import { FaChessPawn } from '../../styles/icons'
+import { FaChessPawn, FaChessBishop, FaChessKing, FaChessKnight, FaChessQueen, FaChessRook } from '../../styles/icons'
 
 import { Container } from './styles';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     index: number,
     content: {
-        player: number,
+        player: 1 | 2,
         type: string,
     }
 };
@@ -14,7 +14,22 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 function renderPiece(pieceType: string): any {
     if (pieceType === 'pawn') {
         return <FaChessPawn size={40} />
-    } else {
+    } else if (pieceType === 'rook') {
+        return <FaChessRook size={40} />
+    }
+    else if (pieceType === 'knight') {
+        return <FaChessKnight size={40} />
+    }
+    else if (pieceType === 'bishop') {
+        return <FaChessBishop size={40} />
+    }
+    else if (pieceType === 'king') {
+        return <FaChessKing size={40} />
+    }
+    else if (pieceType === 'queen') {
+        return <FaChessQueen size={40} />
+    }
+    else {
         return ''
     }
 }
