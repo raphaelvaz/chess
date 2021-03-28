@@ -1,6 +1,6 @@
-import { Socket } from "socket.io";
-import { Controller } from '../protocols'
+import { Controller, socketData } from '../protocols'
 import { UserRepository } from '../../modules/Users/repositories/models/userRepository'
+import initGame from '../../helpers/initGame'
 
 interface enterRoomData {
     userName: string
@@ -20,8 +20,8 @@ interface roomStateData {
 export class RoomEvents implements Controller {
     constructor(private readonly userRepository: UserRepository) { }
 
-    handle(socket: Socket): void {
-        socket.on('enterRoom', async ({ userName, room }: enterRoomData) => {
+    handle(server: socketData): void {
+        server.socket.on('enterRoom', async ({ userName, room }: enterRoomData) => {
             console.log(userName, room)
             //VER QUANTAS PESSOAS TAO NO ROOM
             if (!userName && !room) {
@@ -35,37 +35,38 @@ export class RoomEvents implements Controller {
             }
             const roomLegth = this.userRepository.findAllByRoom(room).length
             if (roomLegth > 1) {
-                socket.emit('roomState', { state: {} } as roomStateData)
+                server.socket.emit('roomState', { state: {} } as roomStateData)
             }
             if (roomLegth === 0) {
-                const user = this.userRepository.addUser({ socketId: socket.id, name: userName, room })
-                await socket.join(user.room)
-                socket.emit('roomState', { state: this.userRepository.findAllByRoom(room) } as roomStateData)
+                const user = this.userRepository.addUser({ socketId: server.socket.id, name: userName, room })
+                await server.socket.join(user.room)
+                server.socket.emit('roomState', { state: this.userRepository.findAllByRoom(room) } as roomStateData)
             }
             if (roomLegth === 1) {
-                const user = this.userRepository.addUser({ socketId: socket.id, name: userName, room })
-                await socket.join(user.room)
+                const user = this.userRepository.addUser({ socketId: server.socket.id, name: userName, room })
+                await server.socket.join(user.room)
                 const connectedMessage = {
                     id: '123',
                     author: 'Someone came in',
                     content: user.name + " join room!"
                 }
-                socket.emit('roomState', { state: this.userRepository.findAllByRoom(room) } as roomStateData)
+                server.socket.emit('roomState', { state: this.userRepository.findAllByRoom(room) } as roomStateData)
                 const usersInRoom = this.userRepository.findAllByRoom(room)
-                socket.in(user.room).emit('ready', usersInRoom)
-                socket.in(user.room).emit("notification", connectedMessage)
+                server.socket.in(user.room).emit('ready', usersInRoom)
+                server.socket.in(user.room).emit("notification", connectedMessage)
+                server.io.in(user.room).emit('startGame', initGame())
             }
         })
 
-        socket.on('playerLeft', (id: string) => {
+        server.socket.on('playerLeft', (id: string) => {
             const { room } = this.userRepository.findBySocketId(id)
             this.userRepository.deleteAllByRoom(room)
-            socket.in(room).emit('quit')
+            server.socket.in(room).emit('quit')
         })
 
-        socket.on('disconnect', () => {
+        server.socket.on('disconnect', () => {
             console.log("User disconnected")
-            this.userRepository.deleteUSer(socket.id)
+            this.userRepository.deleteUSer(server.socket.id)
         })
     }
 }
