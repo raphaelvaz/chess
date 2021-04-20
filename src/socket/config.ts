@@ -4,13 +4,15 @@ import { ArrayUserRepository } from "../modules/Users/repositories/implementatio
 import { ChatEvents } from "./controllers/chatEvents";
 import { RoomEvents } from "./controllers/roomEvents";
 import { GameEvents } from './controllers/gameEvents'
+import { ArrayGameRepository } from "../modules/Game/repositories/arrayGameRepository";
 
 export default (io: Server): void => {
     const arrayUserRepository = new ArrayUserRepository()
     const roomEvents = new RoomEvents(arrayUserRepository)
     const arrayMessageRepository = new ArrayMessageRepository()
     const chatEvents = new ChatEvents(arrayMessageRepository, arrayUserRepository)
-    const gameEvents = new GameEvents(arrayUserRepository)
+    const arrayGameRepository = new ArrayGameRepository()
+    const gameEvents = new GameEvents(arrayUserRepository, arrayGameRepository)
 
     io.on('connection', (socket: Socket) => {
         roomEvents.handle({ socket, io })
