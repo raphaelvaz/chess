@@ -8,6 +8,11 @@ interface PieceProps {
     type: string
 }
 
+interface MoveData {
+    dest: number;
+    source: number;
+}
+
 type GameData = PieceProps[]
 
 const Table: React.FC = () => {
@@ -19,36 +24,26 @@ const Table: React.FC = () => {
             setTable(gameData)
             console.log(gameData)
         })
+
+        socket.on('played', (gameData: GameData) => {
+            console.log(gameData)
+            setTable(gameData)
+        })
     }, [])
 
     function handleClick(dest: number, square: PieceProps) {
         if (!square.type && source === -1) {
             console.log('escolha peças validas para jogar')
             return;
-        } else if (square.type) {
+        } else if (square.type && source === -1) {
             setSource(dest)
             console.log('escolha um destino')
             return;
         }
         if (source > 0) {
-            //selected send...
-            //backend
-            console.log('peça movida!')
-            console.log(source, source)
-            const newTable = table.map((content, index) => {
-                if (source === index) {
-                    return {}
-                }
-                if (dest === index) {
-                    return {
-                        player: 1,
-                        type: 'pawn',
-                    }
-                }
-                return content
-            })
-            console.log(newTable)
-            //setTable([...newTable])
+            const move: MoveData = { dest, source }
+            socket.emit('move', move)
+            console.log(source, dest)
             setSource(-1)
         }
     }
