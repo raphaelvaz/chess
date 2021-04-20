@@ -8,11 +8,6 @@ export default createGlobalStyle`
    }
 
    html{
-    max-width: 100vw;
-    max-height: 100vh;
-    
-    width: 100%;
-    height: 100%;
     }
 
     body, input, button {

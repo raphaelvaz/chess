@@ -1,6 +1,6 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
-import { Container, Input, Button } from './styles';
+import { Container, Title, Input, Button } from './styles';
 import { socket } from '../../services/socket'
 import { useUsers } from '../../hooks/user'
 import { useToast } from '../../hooks/toast'
@@ -65,7 +65,9 @@ const LadingPage: React.FC = () => {
     return (
 
         <Container>
+
             <div>
+                <Title>xadrez.com</Title>
                 <form onSubmit={handleSubmit}>
                     <Input value={inputName} onChange={(e) => setInputName(e.target.value)} type='text' name='userName' placeholder='Digite seu nome'></Input>
                     <Input value={inputRoom} onChange={(e) => setInputRoom(e.target.value)} type='text' name='room' placeholder='Digite o nome da sala'></Input>

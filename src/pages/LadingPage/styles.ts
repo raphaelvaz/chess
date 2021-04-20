@@ -22,6 +22,15 @@ export const Container = styled.div`
     }
 `;
 
+export const Title = styled.div`
+    font-size: 50px;
+    color:#a9a9a9;
+    text-align:center;
+    position:relative;
+    bottom:20vh;
+
+`;
+
 export const Input = styled.input`
     margin-right:50px;
 
