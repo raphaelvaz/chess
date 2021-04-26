@@ -1,4 +1,9 @@
 import { Piece } from "../../Pieces/model/piece";
 
 
-export type Game = Piece[] | {}[]
+export type StatePieces = Piece[] | {}[]
+
+export interface Game {
+    room: string;
+    statePieces: StatePieces;
+}
