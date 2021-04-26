@@ -1,17 +1,25 @@
 import { GameRepository } from "./models/gameRepository";
-import { Game } from '../entities/Game'
+import { Game, StatePieces } from '../entities/Game'
 import initGame from "../../../helpers/initGame";
 
-export class ArrayGameRepository implements GameRepository {
-    private game: Game
-    constructor() {
-        this.game = initGame()
-    }
+const games: Game[] = []
 
-    setGame(game: Game): void {
-        this.game = game
+export class ArrayGameRepository implements GameRepository {
+    addGame(room: string): Game {
+        const game = { room, statePieces: initGame() }
+        games.push(game)
+        return game
     }
-    getGame(): Game {
-        return this.game
+    getGameByRoom(room: string): Game {
+        const game = games.find(game => game.room === room)
+        if (game) return game
+        return {} as Game
+    }
+    updateGame(game: Game) {
+        games.map(storageGame => storageGame.room === game.room ? game : storageGame)
+    }
+    deleteGameByRoom(room: string): void {
+        const index = games.findIndex(game => game.room === room)
+        games.splice(index, 1)
     }
 }
