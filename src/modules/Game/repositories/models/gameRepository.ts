@@ -1,11 +1,8 @@
 import { Game } from '../../entities/Game'
 
-interface MoveData {
-    dest: number;
-    source: number
-}
-
 export interface GameRepository {
-    setGame(game: Game): void
-    getGame(): Game
+    addGame(room: string): Game
+    deleteGameByRoom(room: string): void
+    updateGame(game: Game): void
+    getGameByRoom(room: string): Game
 }
