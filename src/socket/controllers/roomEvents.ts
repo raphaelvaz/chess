@@ -1,6 +1,6 @@
 import { Controller, socketData } from '../protocols'
 import { UserRepository } from '../../modules/Users/repositories/models/userRepository'
-import initGame from '../../helpers/initGame'
+import { GameRepository } from '../../modules/Game/repositories/models/gameRepository'
 
 interface enterRoomData {
     userName: string
@@ -18,7 +18,9 @@ interface roomStateData {
 }
 
 export class RoomEvents implements Controller {
-    constructor(private readonly userRepository: UserRepository) { }
+    constructor(private readonly userRepository: UserRepository,
+        private readonly gameRepository: GameRepository
+    ) { }
 
     handle(server: socketData): void {
         server.socket.on('enterRoom', async ({ userName, room }: enterRoomData) => {
@@ -54,17 +56,25 @@ export class RoomEvents implements Controller {
                 const usersInRoom = this.userRepository.findAllByRoom(room)
                 server.socket.in(user.room).emit('ready', usersInRoom)
                 server.socket.in(user.room).emit("notification", connectedMessage)
-                server.io.in(user.room).emit('startGame', initGame())
+
+                const game = this.gameRepository.addGame(room)
+                console.log(game)
+                server.io.in(user.room).emit('startGame', game.statePieces)
             }
         })
 
         server.socket.on('playerLeft', (id: string) => {
             const { room } = this.userRepository.findBySocketId(id)
             this.userRepository.deleteAllByRoom(room)
+            this.gameRepository.deleteGameByRoom(room)
             server.socket.in(room).emit('quit')
         })
 
         server.socket.on('disconnect', () => {
+            const { room } = this.userRepository.findBySocketId(server.socket.id)
+            this.userRepository.deleteAllByRoom(room)
+            this.gameRepository.deleteGameByRoom(room)
+            server.socket.in(room).emit('quit')
             console.log("User disconnected")
             this.userRepository.deleteUSer(server.socket.id)
         })
