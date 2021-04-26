@@ -7,6 +7,11 @@ interface MoveData {
     source: number
 }
 
+interface enterRoomData {
+    userName: string
+    room: string
+}
+
 
 export class GameEvents implements Controller {
     constructor(
@@ -17,15 +22,13 @@ export class GameEvents implements Controller {
     handle(server: socketData): void {
         server.socket.on('move', ({ source, dest }: MoveData) => {
             const { room } = this.userRepository.findBySocketId(server.socket.id)
-            const game = this.gameRepository.getGame()
+            const game = this.gameRepository.getGameByRoom(room)
 
-            const pivo = game[dest]
-            game[dest] = game[source]
-            game[source] = pivo
+            game.statePieces[dest] = game.statePieces[source]
+            game.statePieces[source] = {}
 
-            console.log(game)
-            this.gameRepository.setGame(game)
-            server.io.in(room).emit('played', game)
+            this.gameRepository.updateGame(game)
+            server.io.in(room).emit('played', game.statePieces)
         })
     }
 }
