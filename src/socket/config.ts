@@ -8,11 +8,11 @@ import { ArrayGameRepository } from "../modules/Game/repositories/arrayGameRepos
 
 export default (io: Server): void => {
     const arrayUserRepository = new ArrayUserRepository()
-    const roomEvents = new RoomEvents(arrayUserRepository)
     const arrayMessageRepository = new ArrayMessageRepository()
     const chatEvents = new ChatEvents(arrayMessageRepository, arrayUserRepository)
     const arrayGameRepository = new ArrayGameRepository()
     const gameEvents = new GameEvents(arrayUserRepository, arrayGameRepository)
+    const roomEvents = new RoomEvents(arrayUserRepository, arrayGameRepository)
 
     io.on('connection', (socket: Socket) => {
         roomEvents.handle({ socket, io })
