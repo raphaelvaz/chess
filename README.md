@@ -30,3 +30,47 @@ Projeto desenvolvido com o intuito de aprender um pouco mais sobre Socket.io. Jo
 
 ## Como rodar
 
+Primeiro clone o projeto:
+
+```bash
+> git clone https://github.com/raphaelvaz/chess.git
+```
+Depois entre na pasta via terminal:
+
+```bash
+> cd chess/back
+```
+Instale todas as dependências:
+
+```bash
+> yarn
+```
+
+Rode o backend da aplicação:
+
+```bash
+> yarn start
+```
+Abrindo outro terminal:
+
+```bash
+> CRTL + ALT + T 
+```
+Acesse a pasta front via terminal(supondo que foi feito o clone na pasta pessoal):
+
+```bash
+> cd chess/front
+```
+Instale todas as dependências:
+
+```bash
+> yarn
+```
+
+Rode o front da aplicação:
+
+```bash
+> yarn start
+```
+A aplicação pode ser acessada através de: http://localhost:3000.
+
